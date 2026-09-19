@@ -11,7 +11,7 @@ Checkout code: downloads the repository contents onto the runner.
 Validate HTML: checks that the HTML files are well formed and free of errors.
 Check for broken links: scans the site for links that do not resolve.
 Deploy to GitHub Pages: publishes the site, but only if the previous steps passed.
-3. What does the "Checkout code" step do and why is it necessary?
+3. What does the "Checkoutcode" step do and why is it necessary?
 
 The "Checkout code" step (using actions/checkout) copies the repository's files onto the temporary virtual machine (the runner) that executes the workflow. A runner starts out empty, so without this step there would be no index.html, CSS, or images to validate, link-check, or deploy. Every later step depends on the code being present, which makes this step the necessary first one.
 
