@@ -1,0 +1,34 @@
+Workflow Analysis: Deploy to GitHub Pages
+
+This document analyzes the GitHub Actions workflow in .github/workflows/deploy.yml.
+
+1. What triggers this workflow to run?
+
+The on: section controls when the workflow runs. This workflow is triggered by a push to the main branch. Every time new commits land on main (including the commit created when a pull request is squash-merged), the workflow starts automatically. It can also be started manually from the Actions tab if workflow_dispatch is enabled in the file.
+
+2. What are the four main steps this workflow performs?
+Checkout code: downloads the repository contents onto the runner.
+Validate HTML: checks that the HTML files are well formed and free of errors.
+Check for broken links: scans the site for links that do not resolve.
+Deploy to GitHub Pages: publishes the site, but only if the previous steps passed.
+3. What does the "Checkout code" step do and why is it necessary?
+
+The "Checkout code" step (using actions/checkout) copies the repository's files onto the temporary virtual machine (the runner) that executes the workflow. A runner starts out empty, so without this step there would be no index.html, CSS, or images to validate, link-check, or deploy. Every later step depends on the code being present, which makes this step the necessary first one.
+
+4. What is the purpose of the environment configuration?
+
+The environment setting (set to github-pages) tells GitHub that the deploy job publishes to the GitHub Pages deployment environment. It serves several purposes:
+
+It records each deployment in the repository's Deployments history, so you can see what was deployed and when.
+It exposes the live site URL, which appears on the workflow run and in the repository sidebar.
+It allows protection rules, such as required reviewers or restrictions on which branches may deploy.
+It scopes the permissions and settings needed for the Pages deployment to this job only.
+5. How does this automated deployment improve reliability compared to manual deployment?
+Consistency: the same steps run in the same clean environment every time, so results do not depend on one person's computer or memory.
+Quality gates: HTML validation and link checking run before anything is published, so broken pages are caught before they reach the live site.
+Fewer human errors: nobody can forget a step, upload the wrong files, or deploy from an outdated local copy.
+Traceability: every run is logged in the Actions tab, which makes failures easy to diagnose and deployments easy to audit.
+Speed: changes go live shortly after merging, with no manual work.
+6. What would happen if you pushed code to a different branch (not main)?
+
+Nothing would be deployed. The workflow is configured to run only on pushes to main, so pushing to a feature branch such as feature/about-section does not trigger it, and the live site stays unchanged. The changes only reach the deployed website after they are merged into main (for example, through an approved pull request), which then triggers the workflow. This lets me work on and review changes safely before they go live.
