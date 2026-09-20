@@ -31,4 +31,13 @@ Traceability: every run is logged in the Actions tab, which makes failures easy 
 Speed: changes go live shortly after merging, with no manual work.
 6. What would happen if you pushed code to a different branch (not main)?
 
-Nothing would be deployed. The workflow is configured to run only on pushes to main, so pushing to a feature branch such as feature/about-section does not trigger it, and the live site stays unchanged. The changes only reach the deployed website after they are merged into main (for example, through an approved pull request), which then triggers the workflow. This lets me work on and review changes safely before they go live.
+
+## What changed
+- Expanded my answer to question 2 with a concrete example
+- Fixed heading levels and list formatting
+
+## Why
+The original answer was too brief to show I understood the trade-offs.
+
+## What to look at
+Please check whether the explanation is accurate and easy to follow.
